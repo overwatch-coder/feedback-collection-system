@@ -22,7 +22,7 @@ const formSchema = new mongoose.Schema(
         },
         inputFieldType: {
           type: String,
-          enum: ["text", "number", "date", "email", "url", "password"],
+          enum: ["text", "number", "date", "email", "url", "password", "tel"],
           default: "text",
         },
         label: {
@@ -62,6 +62,12 @@ const formSchema = new mongoose.Schema(
 );
 
 formSchema.set("strictPopulate", false);
+
+// delete a submission if it's form has been deleted
+formSchema.pre("deleteOne", async function (next) {
+  await this.model("Submission").deleteMany({ formId: this._id });
+  next();
+});
 
 const Form = mongoose.model("Form", formSchema);
 

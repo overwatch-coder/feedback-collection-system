@@ -48,6 +48,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Please provide all required fields",
+      data: null,
     });
   }
 
@@ -56,6 +57,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Please provide a valid email",
+      data: null,
     });
   }
 
@@ -64,6 +66,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Please provide a strong password",
+      data: null,
     });
   }
 
@@ -97,10 +100,13 @@ export const registerUser = asyncHandler(async (req, res) => {
   // Generate access token
   const accessToken = generateToken(user.email);
 
+  // remove password from data to submit
+  const { password: pwd, __v, ...rest } = user._doc;
+
   // Return success response
   res.status(201).json({
     success: true,
-    data: user,
+    data: rest,
     access_token: accessToken,
     message: "User Registered Successfully",
   });
@@ -122,6 +128,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Please provide all required fields",
+      data: null,
     });
   }
 
@@ -130,7 +137,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(400).json({
       success: false,
-      message: "Invalid Credentials",
+      message: "Invalid Credentials or User Does Not Exist",
       data: null,
     });
   }
@@ -148,11 +155,14 @@ export const loginUser = asyncHandler(async (req, res) => {
   // generate access token
   const accessToken = generateToken(user.email);
 
+  // remove password from data to submit
+  const { password: pwd, __v, ...rest } = user._doc;
+
   // Return success response
   res.status(200).json({
     success: true,
     access_token: accessToken,
-    data: user,
+    data: rest,
     message: "User Logged In Successfully",
   });
 });
@@ -198,10 +208,35 @@ export const updateProfile = asyncHandler(async (req, res) => {
     }
   }
 
+  // Check if new password is provided
+  if (req.body.password) {
+    // Check if password is strong enough
+    if (!validator.isStrongPassword(req.body.password)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a strong password",
+        data: null,
+      });
+    }
+
+    // Hash password and set the body to the new hashed password
+    const salt = await bcrypt.genSalt(10);
+    req.body.password = await bcrypt.hash(req.body.password, salt);
+  }
+
   // Check if user exists
-  const updatedUser = await User.findByIdAndUpdate(user._id, req.body, {
-    new: true,
-  }).select("-password");
+  const updatedUser = await User.findByIdAndUpdate(
+    user._id,
+    {
+      username: req.body.username || user.username,
+      email: req.body.email || user.email,
+      password: req.body.password || user.password,
+      avatar: req.body.avatar || user.avatar,
+    },
+    {
+      new: true,
+    }
+  ).select("-password -__v");
 
   if (!updatedUser) {
     return res.status(400).json({

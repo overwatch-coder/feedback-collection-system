@@ -45,6 +45,13 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// delete form and submissions when user is deleted
+userSchema.pre("deleteOne", async function (next) {
+  await this.model("Form").deleteMany({ user: this._id });
+  await this.model("Submission").deleteMany({ owner: this._id });
+  next();
+});
+
 const User = mongoose.model("User", userSchema);
 
 export default User;

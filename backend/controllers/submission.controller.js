@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Submission from "../models/submission.model.js";
+import Form from "../models/form.model.js";
 
 /**
  * @description Get All Submissions
@@ -77,7 +78,7 @@ export const getSingleSubmission = asyncHandler(async (req, res) => {
 
   // return error if submission does not exist
   if (!submission) {
-    return res.status(400).json({
+    return res.status(404).json({
       success: false,
       message: "Submission Not Found",
       data: null,
@@ -132,6 +133,25 @@ export const createSubmission = asyncHandler(async (req, res) => {
     });
   }
 
+  // check if form exists and verify owner
+  const form = await Form.findOne({ _id: formId }).lean().exec();
+  if (!form) {
+    return res.status(404).json({
+      success: false,
+      message: "Form Not Found",
+      data: null,
+    });
+  }
+
+  // check if user is owner of form
+  if (form.user.toString() !== owner) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized Access - Not Owner",
+      data: null,
+    });
+  }
+
   // create new submission
   const newSubmission = await Submission.create({
     formId,
@@ -148,6 +168,12 @@ export const createSubmission = asyncHandler(async (req, res) => {
       data: null,
     });
   }
+
+  // add submission id to form
+  await Form.findOneAndUpdate(
+    { _id: formId },
+    { $push: { submissions: newSubmission._id } }
+  );
 
   // return success response
   res.status(201).json({

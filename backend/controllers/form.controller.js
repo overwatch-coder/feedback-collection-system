@@ -29,7 +29,7 @@ export const getAllForms = asyncHandler(async (req, res) => {
     .exec();
 
   if (!forms) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: "Forms Not Found",
       data: null,
@@ -73,7 +73,7 @@ export const getSingleForm = asyncHandler(async (req, res) => {
 
   // return error if form does not exist
   if (!form) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: "Form Not Found",
       data: null,
@@ -124,7 +124,7 @@ export const createForm = asyncHandler(async (req, res) => {
     return {
       name: field.name,
       type: field.type,
-      inputFieldType: field.inputFieldType,
+      inputFieldType: field.inputFieldType || "text",
       label: field.label,
       placeholder: field.placeholder,
       required: field.required,
