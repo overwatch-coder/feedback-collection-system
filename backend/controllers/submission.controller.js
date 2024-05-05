@@ -8,23 +8,29 @@ import Submission from "../models/submission.model.js";
  * @returns JSON Response with success status, data and message
  * @returns JSON Response with error status and error message if any error occurs.
  */
-
-export const allSubmissions = asyncHandler(async (req, res) => {
+export const getAllSubmissions = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Submission']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }] 
-*/
+        "apiKeyAuth": [
+            {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }]
+        }]
+    */
   const user = req.user;
 
-  // get all submissions
-  const submissions = await Form.find({ user: user._id })
+  // get all submissions based on user's role
+  const submissions = await Submission.find(
+    user.role === "admin" ? { owner: user._id } : { reviewer: user._id }
+  )
     .sort({ createdAt: -1 })
-    .populate("user", "_id email username")
     .lean()
     .exec();
 
   if (!submissions) {
-    res.status(400).json({
+    return res.status(500).json({
       success: false,
       message: "Submissions Not Found",
       data: null,
@@ -39,68 +45,157 @@ export const allSubmissions = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description Get Single Form
+ * @description Get Single Submission
  * @route GET /api/submissions/:id
  * @access Private
  * @returns JSON Response with success status, data and message
  * @returns JSON Response with error status and error message if any error occurs.
  */
-
-export const getForm = asyncHandler(async (req, res) => {
+export const getSingleSubmission = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Submission']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }]
-*/
+        "apiKeyAuth": [
+            {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }]
+        }]
+    */
   // get user and request id
   const id = req.params.id;
   const user = req.user;
 
-  // retrieve form and check if it exists
-  const form = await Submission.findOne({ _id: id, user: user._id })
-    .populate("user", "_id email username")
+  // retrieve submission and check if it exists
+  const submission = await Submission.findOne(
+    user.role === "admin"
+      ? { $and: [{ _id: id }, { owner: user._id }] }
+      : { $and: [{ _id: id }, { reviewer: user._id }] }
+  )
     .lean()
     .exec();
 
-  // return error if form does not exist
-  if (!form) {
-    res.status(400).json({
+  // return error if submission does not exist
+  if (!submission) {
+    return res.status(400).json({
       success: false,
-      message: "Form Not Found",
+      message: "Submission Not Found",
       data: null,
     });
   }
 
   res.status(200).json({
     success: true,
-    message: "Form Found",
-    data: form,
+    message: "Submission Found",
+    data: submission,
   });
 });
 
 /**
- * @description Create Form
+ * @description Create Submission
  * @route POST /api/submissions
  * @access Private
  * @returns JSON Response with success status, data and message
  * @returns JSON Response with error status and error message if any error occurs.
  */
-
-export const createForm = asyncHandler(async (req, res) => {
+export const createSubmission = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Submission']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }]
-*/
+        "apiKeyAuth": [
+            {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }]
+        }]
+    */
   const user = req.user;
 
-  // get form data from req body
-  const { title, description, fields } = req.body;
+  // check if user is admin
+  if (user.role === "admin") {
+    return res.status(401).json({
+      success: false,
+      message: "Admins cannot submit feedbacks",
+      data: null,
+    });
+  }
 
-  // check if form data is valid
-  if (!title || !description || !fields) {
+  // get submission data from req body
+  const { formId, owner, data } = req.body;
+
+  // check if submission data is valid
+  if (!formId || !owner || !data) {
     return res.status(400).json({
       success: false,
       message: "Please provide all required fields",
       data: null,
     });
   }
+
+  // create new submission
+  const newSubmission = await Submission.create({
+    formId,
+    reviewer: user._id,
+    owner,
+    data,
+  });
+
+  // return error if submission not created
+  if (!newSubmission) {
+    return res.status(400).json({
+      success: false,
+      message: "Submission Not Created",
+      data: null,
+    });
+  }
+
+  // return success response
+  res.status(201).json({
+    success: true,
+    message: "Submission Created",
+    data: newSubmission,
+  });
+});
+
+/**
+ * @description DELETE Submission
+ * @route DELETE /api/submissions/:id
+ * @access Private
+ * @returns JSON Response with success status, data and message
+ * @returns JSON Response with error status and error message if any error occurs.
+ */
+export const deleteSubmission = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Submission']
+  /* #swagger.security = [{
+        "apiKeyAuth": [
+            {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }]
+        }]
+    */
+  const user = req.user;
+  const { id } = req.params;
+
+  // delete submission
+  const deletedSubmission = await Submission.findOneAndDelete({
+    $and: [{ _id: id }, { owner: user._id }],
+  });
+
+  // return error if submission not deleted
+  if (!deletedSubmission) {
+    return res.status(500).json({
+      success: false,
+      message: "Submission deletion failed",
+      data: null,
+    });
+  }
+
+  // return success response
+  res.status(200).json({
+    success: true,
+    message: "Submission Deleted",
+    data: null,
+  });
 });

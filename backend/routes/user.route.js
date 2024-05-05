@@ -11,7 +11,6 @@ import { authorizeUser } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 // public routes
-// #swagger.tags = ['User']
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 
