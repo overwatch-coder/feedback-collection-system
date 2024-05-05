@@ -11,7 +11,12 @@ import { generateToken } from "../lib/generateToken.js";
  * @returns JSON Response with success status, data and message
  * @returns JSON Response with error status and error message if any error occurs.
  */
+
 export const getProfile = asyncHandler(async (req, res) => {
+  /* #swagger.security = [{
+  "apiKeyAuth": []
+  }] 
+*/
   const user = req.user;
   res.status(200).json({
     success: true,
@@ -151,6 +156,10 @@ export const loginUser = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const updateProfile = asyncHandler(async (req, res) => {
+  /* #swagger.security = [{
+  "apiKeyAuth": []
+  }] 
+*/
   const user = req.user;
 
   // check if new email is provided
@@ -203,6 +212,10 @@ export const updateProfile = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const deleteAccount = asyncHandler(async (req, res) => {
+  /* #swagger.security = [{
+  "apiKeyAuth": []
+  }] 
+*/
   const user = req.user;
 
   // delete user

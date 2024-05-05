@@ -15,6 +15,8 @@ import { errorHandler } from "./middleware/error.middleware.js";
 
 // import routes
 import userRoutes from "./routes/user.route.js";
+import formRoutes from "./routes/forms.route.js";
+import submissionRoutes from "./routes/submissions.route.js";
 
 // custom imports
 import swaggerDocs from "./docs/docs.json" with { type: "json" };
@@ -38,6 +40,8 @@ const initializeServer = async () => {
 
   // routes
   app.use("/api/auth", userRoutes);
+  app.use("/api/forms", formRoutes);
+  app.use("/api/submissions", submissionRoutes);
 
   // setup docs
   const SWAGGER_UI_CSS_URL =
