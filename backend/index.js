@@ -45,7 +45,7 @@ const initializeServer = async () => {
 
   // setup docs
   const SWAGGER_UI_CSS_URL =
-    "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.1/swagger-ui.css";
+    "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.3/swagger-ui.min.css";
   app.use(
     "/api/docs",
     swaggerUi.serve,
