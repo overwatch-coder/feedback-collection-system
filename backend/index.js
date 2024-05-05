@@ -54,7 +54,7 @@ const initializeServer = async () => {
 
   // default route
   app.use("*", (req, res) => {
-    res.redirect("/api/docs");
+    res.redirect(process.env.DOCS_URL);
   });
 
   // error handler
