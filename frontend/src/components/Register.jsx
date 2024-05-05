@@ -7,15 +7,14 @@ class Register extends React.Component {
   render() {
     return (
       <>
-        <Navbar />
         <div className="flex w-full h-screen">
-          <div className="w-full flex items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             <form>
               <h1 className="font-medium text-center">REGISTER</h1>
               <br />
               <input
                 type="text"
-                className="w-full border-1 border-black"
+                className="border-1 w-full border-black"
                 placeholder="Username"
                 name="username"
                 required
@@ -24,7 +23,7 @@ class Register extends React.Component {
               <br />
               <input
                 type="email"
-                className="w-full border-1 border-black"
+                className="border-1 w-full border-black"
                 placeholder="Email address"
                 name="email"
                 required
@@ -33,15 +32,15 @@ class Register extends React.Component {
               <br />
               <input
                 type="password"
-                className="w-full border-1 border-black"
+                className="border-1 w-full border-black"
                 placeholder="Password"
                 name="password"
                 required
               />
               <br />
               <br />
-              <div class="flex justify-center">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <div className="flex justify-center">
+                <button className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded">
                   Register
                 </button>
               </div>
@@ -50,7 +49,7 @@ class Register extends React.Component {
                 Already have an account?
                 <Link
                   to={"/login"}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="hover:text-blue-700 text-blue-500"
                 >
                   <space> </space>Login
                 </Link>

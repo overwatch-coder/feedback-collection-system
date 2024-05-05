@@ -6,19 +6,19 @@ class Navbar extends React.Component {
   render() {
     return (
       <>
-        <nav className="bg-gray-800 p-2">
-          <div className="container mx-auto flex justify-between items-center">
+        <nav className="bg-primary border-b-light fixed top-0 w-full px-10 py-2 border-b-2">
+          <div className="container flex items-center justify-between mx-auto">
             <div
               style={{ fontSize: "24px" }}
-              className="text-white font-bold text-x1"
+              className="text-3x1 text-light font-bold"
             >
               <Link to={"/"}>FBF</Link>
             </div>
-            <ul className="flex space-x-6 p-2">
+            <ul className="flex p-2 space-x-6">
               <li>
                 <Link
                   to={"/forms"}
-                  className="text-white hover:text-gray-300 justify-center"
+                  className="hover:text-gray-300 justify-center text-white"
                 >
                   Forms
                 </Link>
@@ -26,14 +26,14 @@ class Navbar extends React.Component {
               <li>
                 <Link
                   to={"/contact"}
-                  className="text-white hover:text-gray-300 justify-center"
+                  className="hover:text-gray-300 justify-center text-white"
                 >
                   Contact
                 </Link>
               </li>
               <li>
                 <Link to={"/login"}>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                  <button className="hover:bg-blue-700 px-2 py-1 font-bold text-white bg-blue-500 rounded">
                     Account
                   </button>
                 </Link>
