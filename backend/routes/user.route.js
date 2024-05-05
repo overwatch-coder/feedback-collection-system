@@ -15,9 +15,13 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // protected routes
+/* #swagger.security = [{
+  "apiKeyAuth": []
+  }] 
+*/
 router.use(authorizeUser);
 router.get("/profile", getProfile);
 router.patch("/profile", updateProfile);
-router.delete("profile", deleteAccount);
+router.delete("/profile", deleteAccount);
 
 export default router;
