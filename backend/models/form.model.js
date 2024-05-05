@@ -14,7 +14,7 @@ const formSchema = new mongoose.Schema(
       {
         name: {
           type: String,
-          required: true,
+          default: "Field Name",
         },
         type: {
           type: String,
@@ -27,7 +27,7 @@ const formSchema = new mongoose.Schema(
         },
         label: {
           type: String,
-          required: true,
+          default: "Field Label",
         },
         placeholder: {
           type: String,

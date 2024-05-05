@@ -13,10 +13,17 @@ import { generateToken } from "../lib/generateToken.js";
  */
 
 export const getProfile = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User']
+  // #swagger.tags = ['User']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }] 
-*/
+        "apiKeyAuth": [
+            {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }]
+        }]
+    */
   const user = req.user;
   res.status(200).json({
     success: true,
@@ -33,6 +40,7 @@ export const getProfile = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const registerUser = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User']
   const { username, email, password } = req.body;
 
   // Check if username,email and password are provided
@@ -106,6 +114,7 @@ export const registerUser = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const loginUser = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User']
   const { email, password } = req.body;
 
   // Check if email and password are provided
@@ -156,10 +165,16 @@ export const loginUser = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const updateProfile = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }] 
-*/
+        "apiKeyAuth": [
+            {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }]
+        }]
+    */
   const user = req.user;
 
   // check if new email is provided
@@ -212,10 +227,16 @@ export const updateProfile = asyncHandler(async (req, res) => {
  * @returns JSON Response with error status and error message if any error occurs.
  */
 export const deleteAccount = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User']
   /* #swagger.security = [{
-  "apiKeyAuth": []
-  }] 
-*/
+        "apiKeyAuth": [
+            {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }]
+        }]
+    */
   const user = req.user;
 
   // delete user

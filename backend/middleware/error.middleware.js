@@ -35,6 +35,24 @@ export const errorHandler = (err, req, res, next) => {
     err.message = "Resource not found - Invalid Object Id";
   }
 
+  // If Mongoose validation error, set to 400 and change message
+  if (err?.name === "ValidationError") {
+    statusCode = 400;
+    err.message = "Validation Error";
+  }
+
+  // If Mongoose duplicate key error, set to 400 and change message
+  if (err?.code === 11000) {
+    statusCode = 400;
+    err.message = "Duplicate key error";
+  }
+
+  // Check json web token error
+  if (err?.name === "JsonWebTokenError") {
+    statusCode = 400;
+    err.message = "Invalid token";
+  }
+
   // Log the error
   console.error(err);
 

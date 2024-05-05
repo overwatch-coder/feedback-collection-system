@@ -1,6 +1,7 @@
 import swaggerAutogen from "swagger-autogen";
 
 const doc = {
+  name: "Zidio Internship",
   info: {
     title: "Feedback Collection System API Documentation",
     description:
@@ -20,13 +21,30 @@ const doc = {
       description: "Production server",
     },
   ],
+  tags: [
+    {
+      name: "User",
+      description: "User related routes",
+    },
+    {
+      name: "Form",
+      description: "Form related routes",
+    },
+    {
+      name: "Submission",
+      description: "Submission related routes",
+    },
+  ],
   schemes: ["http", "https"],
   consumes: ["application/json"],
   produces: ["application/json"],
   components: {
     securitySchemes: {
-      bearerAuth: {
-        type: "http",
+      apiKeyAuth: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Enter JWT token",
         scheme: "bearer",
         bearerFormat: "JWT",
       },

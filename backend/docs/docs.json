@@ -15,6 +15,20 @@
       "description": "Production server"
     }
   ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "User related routes"
+    },
+    {
+      "name": "Form",
+      "description": "Form related routes"
+    },
+    {
+      "name": "Submission",
+      "description": "Submission related routes"
+    }
+  ],
   "paths": {
     "/api/auth/register": {
       "post": {
@@ -95,7 +109,13 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "apiKeyAuth": [
+              {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            ]
           }
         ]
       },
@@ -114,7 +134,13 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "apiKeyAuth": [
+              {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            ]
           }
         ],
         "requestBody": {
@@ -147,7 +173,13 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "apiKeyAuth": [
+              {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            ]
           }
         ]
       }
@@ -155,11 +187,15 @@
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Enter JWT token",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
-  }
+  },
+  "name": "Zidio Internship"
 }
