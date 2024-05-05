@@ -6,18 +6,18 @@ class BodyHeader extends React.Component {
   render() {
     return (
       <div className="flex flex-col items-center justify-center pb-10">
-        <div className="lg:flex-row lg:items-center bg-secondary flex flex-col items-center gap-10 px-10 py-20">
-          <div className="lg:w-1/2 flex flex-col gap-5">
-            <h1 className="text-light text-4xl font-bold leading-relaxed">
+        <div className="lg:flex-row lg:items-center bg-secondary md:px-10 flex flex-col items-center gap-10 px-3 py-20">
+          <div className="lg:w-1/2 md:items-start md:w-auto flex flex-col items-center gap-5">
+            <h1 className="text-light md:text-start md:leading-snug text-4xl font-bold leading-normal text-center">
               Welcome to FBF: <br /> Your Feedback Matters{" "}
             </h1>
-            <p className="text-light text-lg font-light">
+            <p className="text-light md:text-start text-lg font-light text-center">
               We value your opinion and strive to continuously improve our
               services. Please take a moment to share your feedback with us
             </p>
 
             <div className="pt-4">
-              <button className="bg-secondaryLight text-light hover:scale-105 hover:bg-primary px-8 py-3 text-center capitalize transition rounded-full">
+              <button className="bg-secondaryLight text-light hover:scale-105 hover:bg-primary w-full px-8 py-3 text-center capitalize transition rounded-full">
                 <Link to="/forms">Start Now</Link>
               </button>
             </div>
@@ -33,21 +33,19 @@ class BodyHeader extends React.Component {
         </div>
 
         <div className="text-light flex flex-col items-center justify-center pt-20">
-          <div className="items-center justify-center gap-4">
-            <h1
-              style={{ fontSize: "24px" }}
-              className="font-nunito text-center"
-            >
+          <div className="md:px-auto flex flex-col items-center justify-center gap-4 px-5">
+            <h3 className="md:text-xl text-2xl text-center">
               Help us improve by sharing your feedback.
-            </h1>
-            <h1 style={{ fontSize: "64px" }} className="font-semibold">
+            </h3>
+
+            <h2 className="md:text-6xl md:leading-none md:tracking-normal py-2 text-[42px] font-semibold leading-tight tracking-wide text-center">
               Our app makes it easy and quick!
-            </h1>
+            </h2>
           </div>
 
-          <div className="md:flex-row md:justify-center md:max-w-5xl flex flex-col items-center w-full gap-8 py-10 mx-auto">
+          <div className="md:flex-row md:justify-center md:max-w-5xl md:px-auto flex flex-col items-center w-full gap-8 px-5 py-10 mx-auto">
             <div className="bg-secondary flex flex-col gap-3 p-6 rounded-md shadow-xl">
-              <h2 className="text-lg font-semibold">Easy Submission</h2>
+              <h2 className="text-xl font-semibold">Easy Submission</h2>
               <p className="text-sm font-normal">
                 Submit your feedback effortlessly through our user-friendly
                 form.
@@ -55,14 +53,14 @@ class BodyHeader extends React.Component {
             </div>
 
             <div className="bg-secondary flex flex-col gap-3 p-6 rounded-md shadow-xl">
-              <h2 className="text-lg font-semibold">Customizable</h2>
+              <h2 className="text-xl font-semibold">Customizable</h2>
               <p className="text-sm font-normal">
                 Tailor your Feedback based on specific categories or aspects
               </p>
             </div>
 
             <div className="bg-secondary flex flex-col gap-3 p-6 rounded-md shadow-xl">
-              <h2 className="text-lg font-semibold">Real-Time Updates</h2>
+              <h2 className="text-xl font-semibold">Real-Time Updates</h2>
               <p className="text-sm font-normal">
                 Receive instant confirmation upon submitting your feedback
               </p>
