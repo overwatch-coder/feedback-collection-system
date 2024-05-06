@@ -20,20 +20,26 @@ const Register = () => {
       const method = "POST";
       const data = await submitData(url, formdata, method, null);
 
-      setCurrentUser({ ...data?.data, token: data?.access_token });
+      if (data?.success) {
+        setCurrentUser({ ...data?.data, token: data?.access_token });
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...data?.data, token: data?.access_token })
-      );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...data?.data, token: data?.access_token })
+        );
 
-      setUsername("");
-      setEmail("");
-      setPassword("");
+        setUsername("");
+        setEmail("");
+        setPassword("");
 
-      toast.success(data.message);
+        toast.success(data?.message);
 
-      navigate("/dashboard");
+        navigate("/dashboard");
+      } else {
+        setCurrentUser(null);
+        localStorage.removeItem("user");
+        throw new Error(data.message);
+      }
     } catch (error) {
       console.log(error);
     }

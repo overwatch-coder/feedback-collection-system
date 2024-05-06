@@ -26,18 +26,24 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route
             path="/login"
-            element={currentUser ? <Navigate to="/dashboard" /> : <Login />}
+            element={
+              currentUser?._id ? <Navigate to="/dashboard" /> : <Login />
+            }
           />
           <Route
             path="/register"
-            element={currentUser ? <Navigate to="/dashboard" /> : <Register />}
+            element={
+              currentUser?._id ? <Navigate to="/dashboard" /> : <Register />
+            }
           />
         </Route>
 
         {/* Protected Routes (Dashboard) */}
         <Route
           path="/dashboard"
-          element={currentUser ? <DashboardLayout /> : <Navigate to="/login" />}
+          element={
+            currentUser?._id ? <DashboardLayout /> : <Navigate to="/login" />
+          }
         >
           <Route index element={<Account />} />
           <Route path="create" element={<CreateNewFeedback />} />

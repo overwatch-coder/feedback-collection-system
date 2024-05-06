@@ -19,18 +19,24 @@ const Login = () => {
       const method = "POST";
       const data = await submitData(url, formdata, method, null);
 
-      setEmail("");
-      setPassword("");
+      if (data?.success) {
+        setEmail("");
+        setPassword("");
 
-      setCurrentUser({ ...data?.data, token: data?.access_token });
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...data?.data, token: data?.access_token })
-      );
+        setCurrentUser({ ...data?.data, token: data?.access_token });
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...data?.data, token: data?.access_token })
+        );
 
-      toast.success(data.message);
+        toast.success(data?.message);
 
-      navigate("/dashboard");
+        navigate("/dashboard");
+      } else {
+        setCurrentUser(null);
+        localStorage.removeItem("user");
+        throw new Error(data.message);
+      }
     } catch (error) {
       console.log(error);
     }
