@@ -8,13 +8,16 @@ export const useFetch = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
-        method: "GET",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://api-feedback-form.vercel.app${url}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const jsonData = await response.json();
 
       if (jsonData?.success === false) {
@@ -35,14 +38,17 @@ export const useFetch = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
-        method: method || "POST",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formdata),
-      });
+      const response = await fetch(
+        `https://api-feedback-form.vercel.app${url}`,
+        {
+          method: method || "POST",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formdata),
+        }
+      );
       const jsonData = await response.json();
 
       if (jsonData?.success === false) {
