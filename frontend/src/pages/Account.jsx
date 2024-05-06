@@ -27,22 +27,18 @@ const Account = () => {
 
         <div className="flex flex-col gap-5">
           <p className="text-light">
-            <span className="font-semibold text-white">Name:</span> {user?.name}
-          </p>
-
-          <p className="text-light">
             <span className="font-semibold text-white">Username:</span>{" "}
-            {user?.username}
+            {user?.username || "Guest"}
           </p>
 
           <p className="text-light">
             <span className="font-semibold text-white">Email:</span>{" "}
-            {user?.email}
+            {user?.email || "guest@example.com"}
           </p>
 
           <p className="text-light">
-            <span className="font-semibold text-white">Created:</span>{" "}
-            {user?.createdAt}
+            <span className="font-semibold text-white">Last logged in:</span>{" "}
+            {"1 hour ago"}
           </p>
 
           <button className="bg-primary text-light hover:scale-105 w-full px-5 py-2 font-medium text-center transition rounded">
