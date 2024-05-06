@@ -2,7 +2,6 @@ import { useState, useEffect, createContext, useContext } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
@@ -10,7 +9,6 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage) {
@@ -23,10 +21,12 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  console.log({ currentUser });
+
   const logout = () => {
     localStorage.removeItem("user");
     setCurrentUser(null);
-    navigate("/login");
+    window.location.replace("/login");
   };
 
   const contextValues = { currentUser, setCurrentUser, logout };

@@ -7,27 +7,29 @@ const Analytics = () => {
 
       {/* Total Feedbacks */}
       <div className="md:grid-cols-2 grid grid-cols-1 gap-10">
-        <div className="bg-secondary p-5 mb-6 shadow-md">
+        <div className="bg-secondary px-5 py-10 mb-6 rounded shadow-md">
           <h3 className="mb-2 text-sm font-semibold">Total Feedbacks</h3>
-          <p className="text-gray-700">1000</p>
+          <p className="text-light md:text-5xl text-3xl font-bold">1000</p>
         </div>
 
         {/* Average Rating */}
-        <div className="bg-secondary p-5 mb-6 shadow-md">
+        <div className="bg-secondary px-5 py-10 mb-6 rounded shadow-md">
           <h3 className="mb-2 text-sm font-semibold">Average Rating</h3>
-          <p className="text-gray-700">4.5</p>
+          <p className="text-light md:text-5xl text-3xl font-bold">4.5</p>
         </div>
 
         {/* Most Common Issue */}
-        <div className="bg-secondary p-5 mb-6 shadow-md">
+        <div className="bg-secondary px-5 py-10 mb-6 rounded shadow-md">
           <h3 className="mb-2 text-sm font-semibold">Most Common Issue</h3>
-          <p className="text-gray-700">Bug Reports</p>
+          <p className="text-light md:text-5xl text-3xl font-bold">
+            Bug Reports
+          </p>
         </div>
 
         {/* Bot Detected Feedbacks */}
-        <div className="bg-secondary p-5 mb-6 shadow-md">
+        <div className="bg-secondary px-5 py-10 mb-6 rounded shadow-md">
           <h3 className="mb-2 text-sm font-semibold">Bot Detected Feedbacks</h3>
-          <p className="text-gray-700">50</p>
+          <p className="text-light md:text-5xl text-3xl font-bold">50</p>
         </div>
       </div>
 
