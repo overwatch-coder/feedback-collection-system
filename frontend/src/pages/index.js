@@ -8,6 +8,7 @@ import CreateNewFeedback from "./CreateNewFeedback";
 import Submissions from "./Submissions";
 import AvailableForms from "./AvailableForms";
 import Feedbacks from "./Feedbacks";
+import NewFormPage from "./NewFormPage";
 
 export {
   Login,
@@ -20,4 +21,5 @@ export {
   Submissions,
   AvailableForms,
   Feedbacks,
+  NewFormPage,
 };
