@@ -50,7 +50,7 @@ function App() {
           <Route
             path="create"
             element={
-              currentUser._id && currentUser?.role === "admin" ? (
+              currentUser?._id && currentUser?.role === "admin" ? (
                 <CreateNewFeedback />
               ) : (
                 <Navigate to="/dashboard" />
