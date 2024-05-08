@@ -1,54 +1,46 @@
 import React from "react";
 import { useAuth } from "../providers/AuthProvider";
+import { FormCard } from "../components";
+import { Link } from "react-router-dom";
+import { BsPlus } from "react-icons/bs";
 
 const CreateNewFeedback = () => {
   const { currentUser: user } = useAuth();
   return (
-    <div className="md:py-10 md:px-20 flex flex-col flex-grow w-full gap-6 px-5 py-5">
-      <h2 className="md:text-4xl text-3xl font-bold">Create A New Feedback</h2>
+    <div className="md:py-10 md:px-20 flex flex-col flex-grow w-full gap-6 px-5 pt-5 pb-20">
+      <h2 className="md:text-4xl text-3xl font-bold">Create New Form</h2>
 
-      <div className="md:flex-row md:justify-around bg-secondary md:p-10 flex flex-col w-full gap-5 p-5 mx-auto">
-        <div className="flex flex-col gap-5">
-          <img
-            src={user?.avatar || "https://source.unsplash.com/random"}
-            alt="user picture"
-            className="object-cover w-32 h-32 rounded-full"
-            loading="lazy"
-          />
+      <p className="text-light font-medium">
+        Select a template (not available yet) or create your own
+      </p>
 
-          <button className="bg-primary text-light hover:scale-105 w-full py-3 font-medium transition rounded">
-            Update Details
-          </button>
-        </div>
+      <div className="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid flex-wrap w-full grid-cols-1 gap-10">
+        {/* form card */}
+        <Link
+          to={`/dashboard/create-new`}
+          className="hover:scale-105 transition"
+        >
+          <div className="flex flex-col gap-3">
+            <div className="border-light bg-secondary md:h-52 flex flex-col items-center justify-center h-64 p-5 border">
+              <BsPlus className="text-light w-16 h-full" />
+            </div>
 
-        {/* separator */}
-        <div className="w-0.5 h-full bg-light" />
+            <p className="text-light font-medium">{"Create New Form"}</p>
+          </div>
+        </Link>
 
-        <div className="flex flex-col gap-5">
-          <p className="text-light">
-            <span className="font-semibold text-white">Name:</span> {user?.name}
-          </p>
-
-          <p className="text-light">
-            <span className="font-semibold text-white">Username:</span>{" "}
-            {user?.username}
-          </p>
-
-          <p className="text-light">
-            <span className="font-semibold text-white">Email:</span>{" "}
-            {user?.email}
-          </p>
-
-          <p className="text-light">
-            <span className="font-semibold text-white">Created:</span>{" "}
-            {user?.createdAt}
-          </p>
-
-          <button className="bg-primary text-light hover:scale-105 w-full py-3 font-medium transition rounded">
-            Update Details
-          </button>
-        </div>
+        <FormCard id={"1"} name={"Assessment Feedback"} />
+        <FormCard id={"2"} name={"Customer Feedback"} />
+        <FormCard id={"3"} name={"Product Feedback"} />
+        <FormCard id={"4"} name={"Services Feedback"} />
+        <FormCard id={"5"} name={"Food Review"} />
       </div>
+
+      <Link to="/dashboard/submissions">
+        <button className="bg-primary hover:underline text-light hover:scale-105 w-full py-3 font-medium transition rounded">
+          View your submissions
+        </button>
+      </Link>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import {
   AvailableForms,
   Submissions,
   Analytics,
+  NewFormPage,
 } from "./pages";
 import { DashboardLayout, RootLayout } from "./components";
 
@@ -46,11 +47,66 @@ function App() {
           }
         >
           <Route index element={<Account />} />
-          <Route path="create" element={<CreateNewFeedback />} />
-          <Route path="feedbacks" element={<Feedbacks />} />
-          <Route path="forms" element={<AvailableForms />} />
-          <Route path="submissions" element={<Submissions />} />
-          <Route path="analytics" element={<Analytics />} />
+          <Route
+            path="create"
+            element={
+              currentUser._id && currentUser?.role === "admin" ? (
+                <CreateNewFeedback />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route
+            path="create-new"
+            element={
+              currentUser?._id && currentUser?.role === "admin" ? (
+                <NewFormPage />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route
+            path="feedbacks"
+            element={
+              currentUser?._id && currentUser?.role === "admin" ? (
+                <Feedbacks />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route
+            path="forms"
+            element={
+              currentUser?._id && currentUser?.role === "user" ? (
+                <AvailableForms />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route
+            path="submissions"
+            element={
+              currentUser?._id && currentUser?.role === "user" ? (
+                <Submissions />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route
+            path="analytics"
+            element={
+              currentUser?._id && currentUser?.role === "admin" ? (
+                <Analytics />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
