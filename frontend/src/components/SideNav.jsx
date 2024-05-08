@@ -77,7 +77,7 @@ const SideNav = ({ open, onClose, isMdScreen }) => {
             })}
       </nav>
 
-      <div className="px-2">
+      <div className="px-2 pb-8">
         <button
           onClick={logout}
           className="bg-primary text-light hover:scale-105 md:py-2 w-full py-3 font-medium transition rounded"
